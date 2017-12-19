@@ -13,7 +13,7 @@ initDownloadTool() {
 	else
 		fail "You need curl or wget as download tool. Please install it first before continue"
 	fi
-	echo "Using $DOWNLOAD_TOOL as download tool, install gopkg"
+	echo "Using $DOWNLOAD_TOOL as download tool, install gomake"
 }
 
 getFile() {
