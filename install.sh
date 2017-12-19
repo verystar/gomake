@@ -30,8 +30,8 @@ install() {
     DOWNLOAD_MAKESHELL_URL=https://raw.githubusercontent.com/verystar/gomake/master/make.sh
     DOWNLOAD_MAKEFILE_URL=https://raw.githubusercontent.com/verystar/gomake/master/Makefile
     TOPATH=./
-    getFile "${DOWNLOAD_MAKESHELL_URL}" "${TOPATH}"
-    getFile "${DOWNLOAD_MAKEFILE_URL}" "${TOPATH}"
+    getFile "${DOWNLOAD_MAKESHELL_URL}" "${TOPATH}"make.sh
+    getFile "${DOWNLOAD_MAKEFILE_URL}" "${TOPATH}"Makefile
 }
 
 initDownloadTool
