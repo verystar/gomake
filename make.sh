@@ -46,7 +46,7 @@ build(){
         fail "GOPATH empty!"
     fi
     info "[GOPATH]"${GOPATH}
-    go build -ldflags "-X app/core/cli.VERSION=${APP_VERSION}" -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION} main.go
+    go build -ldflags "-X app/core/cli.VERSION=${APP_VERSION}" -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION}
 
     changeVersion ${APP_VERSION}
 }
