@@ -54,8 +54,9 @@ build(){
 changeVersion(){
     if [ "$1" != "" ]; then
         if [ -f ${SHELL_PATH}/bin/${APP}-${APP_VERSION} ]; then
-            rm -rf ${SHELL_PATH}/${APP}
+            rm -f ${SHELL_PATH}/${APP}
             ln -s ${SHELL_PATH}/bin/${APP}-${APP_VERSION} ${SHELL_PATH}/${APP}
+            ls -lt ${SHELL_PATH}/bin/ | awk '{if(NR>11){print $9}}' | xargs rm -f
         else
         fail "Not found bin file:./bin/${APP}-${APP_VERSION}"
         fi
