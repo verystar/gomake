@@ -4,7 +4,7 @@
 # https://github.com/verystar/gomake
 #---------------------
 
-APP="payjob"
+APP="app"
 SHELL_PATH=$(cd `dirname $0`; pwd)
 VERSION="1.0.1"
 APP_VERSION=`date +%Y%m%d%H%M%S`
@@ -46,7 +46,7 @@ build(){
         fail "GOPATH empty!"
     fi
     info "[GOPATH]"${GOPATH}
-    go build -ldflags "-X app/core/cli.VERSION=${APP_VERSION}" -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION}
+    go build -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION}
 
     changeVersion ${APP_VERSION}
 }
