@@ -6,7 +6,7 @@
 
 APP="app"
 SHELL_PATH=$(cd `dirname $0`; pwd)
-VERSION="1.0.1"
+VERSION="1.0.2"
 APP_VERSION=`date +%Y%m%d%H%M%S`
 
 fail() {
@@ -43,10 +43,12 @@ build(){
     fi
 
     if [ "${GOPATH}" = "" ]; then
-        fail "GOPATH empty!"
+        info "[GOPATH] empty!"
+    else
+        info "[GOPATH]"${GOPATH}
     fi
-    info "[GOPATH]"${GOPATH}
-    go build -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION}
+
+    go build -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION} main.go
 
     changeVersion ${APP_VERSION}
 }
@@ -125,9 +127,6 @@ upgradeGoMake() {
     install
 }
 
-#set gopath
-gop
-
 if [ "$1" = "back" ];then
     back $2
     info "[Current Version]"$(ls -ld ${APP}|awk '{print $NF}')
@@ -142,6 +141,12 @@ elif [ "$1" = "test" ]; then
      goconvey -workDir=${SHELL_PATH} -excludedDirs="vendor,storage,examples,bin"
 elif [ "$1" = "upgrade" ]; then
     upgradeGoMake
-else
+elif [ "$1" = "build" ]; then
+    if [ "$2" != "mod" ]; then
+    #set gopath
+    gop
+    fi
     build
+else
+    fail "no make command"
 fi
