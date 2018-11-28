@@ -18,3 +18,11 @@ make list //show app all version list
 make publish //rsync app code to server
 make upgrade //upgrade gomake
 ```
+
+## Builder for mod
+
+If the program directory contains the vendor directory, When compiled, -mod=vendor is automatically added
+
+```
+go build -mod=vendor -o xxxx
+```

@@ -21,7 +21,7 @@ info() {
 info "[App]"${APP}
 info "[Path]"${SHELL_PATH}
 
-if [ "${SHELL_PATH}" = "" ]; then
+if [[ "${SHELL_PATH}" = "" ]]; then
     fail "SHELL_PATH empty!"
 fi
 
@@ -38,24 +38,29 @@ gop(){
 }
 
 build(){
-    if [ ! -d ${SHELL_PATH}/bin ]; then
+    if [[ ! -d ${SHELL_PATH}/bin ]]; then
         mkdir ${SHELL_PATH}/bin/
     fi
 
-    if [ "${GOPATH}" = "" ]; then
+    if [[ "${GOPATH}" = "" ]]; then
         info "[GOPATH] empty!"
     else
         info "[GOPATH]"${GOPATH}
     fi
 
-    go build -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION} main.go
+    params=""
+    if [[ "$1" = "mod" ]] && [[ -d ${SHELL_PATH}/vendor ]]; then
+        echo "Builder mod vendor"
+        params="-mod=vendor"
+    fi
 
+    go build ${params} -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION}
     changeVersion ${APP_VERSION}
 }
 
 changeVersion(){
-    if [ "$1" != "" ]; then
-        if [ -f ${SHELL_PATH}/bin/${APP}-${APP_VERSION} ]; then
+    if [[ "$1" != "" ]]; then
+        if [[ -f ${SHELL_PATH}/bin/${APP}-${APP_VERSION} ]]; then
             rm -f ${SHELL_PATH}/${APP}
             ln -s ${SHELL_PATH}/bin/${APP}-${APP_VERSION} ${SHELL_PATH}/${APP}
             ls -t ${SHELL_PATH}/bin/ | awk '{if(NR>11){print "./bin/"$0}}' | xargs rm -f
@@ -71,13 +76,13 @@ back(){
     currversion=$(ls -ld ${APP}|awk '{print $NF}')
     prefile=""
     echo $1
-    if [ "$1" != "" ]; then
+    if [[ "$1" == "" ]]; then
         APP_VERSION=$1
     else
         for file in `ls ${SHELL_PATH}/bin/${APP}-* | sort`
         do
-            if [ "${file}" == "${currversion}" ]; then
-                if [ "${prefile}" == "" ]; then
+            if [[ "${file}" == "${currversion}" ]]; then
+                if [[ "${prefile}" == "" ]]; then
                     fail "Not prev version"
                 else
                     APP_VERSION=${prefile#*${APP}-}
@@ -107,9 +112,9 @@ initDownloadTool() {
 getFile() {
 	local url="$1"
 	local filePath="$2"
-	if [ "$DOWNLOAD_TOOL" = "curl" ]; then
+	if [[ "$DOWNLOAD_TOOL" = "curl" ]]; then
 		curl -L "$url" -o "$filePath"
-	elif [ "$DOWNLOAD_TOOL" = "wget" ]; then
+	elif [[ "$DOWNLOAD_TOOL" = "wget" ]]; then
 		wget -O "$filePath" "$url"
 	fi
 }
@@ -127,26 +132,26 @@ upgradeGoMake() {
     install
 }
 
-if [ "$1" = "back" ];then
+if [[ "$1" = "back" ]];then
     back $2
     info "[Current Version]"$(ls -ld ${APP}|awk '{print $NF}')
-elif [ "$1" = "version" ];then
+elif [[ "$1" = "version" ]];then
     info "[Current Version]"$(ls -ld ${APP}|awk '{print $NF}')
-elif [ "$1" = "list" ]; then
+elif [[ "$1" = "list" ]]; then
     ls -l ${SHELL_PATH}/bin/
-elif [ "$1" = "publish" ]; then
+elif [[ "$1" = "publish" ]]; then
     cd ../../
     /bin/sh rsync.sh
-elif [ "$1" = "test" ]; then
+elif [[ "$1" = "test" ]]; then
      goconvey -workDir=${SHELL_PATH} -excludedDirs="vendor,storage,examples,bin"
-elif [ "$1" = "upgrade" ]; then
+elif [[ "$1" = "upgrade" ]]; then
     upgradeGoMake
-elif [ "$1" = "build" ]; then
-    if [ "$2" != "mod" ]; then
+elif [[ "$1" = "build" ]]; then
+    if [[ "$2" != "mod" ]]; then
     #set gopath
     gop
     fi
-    build
+    build $2
 else
     fail "no make command"
 fi
