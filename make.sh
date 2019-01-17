@@ -148,7 +148,7 @@ elif [[ "$1" = "upgrade" ]]; then
     upgradeGoMake
 elif [[ "$1" = "build" ]]; then
     if [[ "$2" != "mod" ]]; then
-    #set gopath
+    #sync vendor
     go mod vendor
     fi
     build
