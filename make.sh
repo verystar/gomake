@@ -51,6 +51,7 @@ build(){
     params=""
     if [[ "$1" = "mod" ]] && [[ -d ${SHELL_PATH}/vendor ]]; then
         echo "Builder mod vendor"
+        go mod vendor
         params="-mod=vendor"
     fi
 
