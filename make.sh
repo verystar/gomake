@@ -143,7 +143,7 @@ elif [[ "$1" = "publish" ]]; then
     cd ../../
     /bin/sh rsync.sh
 elif [[ "$1" = "test" ]]; then
-     goconvey -workDir=${SHELL_PATH} -excludedDirs="vendor,storage,examples,bin"
+     go test -race
 elif [[ "$1" = "upgrade" ]]; then
     upgradeGoMake
 elif [[ "$1" = "build" ]]; then
