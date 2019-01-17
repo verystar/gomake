@@ -25,17 +25,17 @@ if [[ "${SHELL_PATH}" = "" ]]; then
     fail "SHELL_PATH empty!"
 fi
 
-gop(){
-    currpath=${SHELL_PATH}/
-    gopath=${currpath%src/*}
-
-    if [[ ${gopath} = "" ]];then
-        echo "path not found src"
-        exit
-    else
-        export GOPATH=${currpath%src/*}
-    fi
-}
+#gop(){
+#    currpath=${SHELL_PATH}/
+#    gopath=${currpath%src/*}
+#
+#    if [[ ${gopath} = "" ]];then
+#        echo "path not found src"
+#        exit
+#    else
+#        export GOPATH=${currpath%src/*}
+#    fi
+#}
 
 build(){
     if [[ ! -d ${SHELL_PATH}/bin ]]; then
@@ -49,9 +49,8 @@ build(){
     fi
 
     params=""
-    if [[ "$1" = "mod" ]] && [[ -d ${SHELL_PATH}/vendor ]]; then
+    if [[ -d ${SHELL_PATH}/vendor ]]; then
         echo "Builder mod vendor"
-        go mod vendor
         params="-mod=vendor"
     fi
 
@@ -150,9 +149,9 @@ elif [[ "$1" = "upgrade" ]]; then
 elif [[ "$1" = "build" ]]; then
     if [[ "$2" != "mod" ]]; then
     #set gopath
-    gop
+    go mod vendor
     fi
-    build $2
+    build
 else
     fail "no make command"
 fi
