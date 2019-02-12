@@ -49,10 +49,11 @@ build(){
     fi
 
     params=""
-#    if [[ -d ${SHELL_PATH}/vendor ]]; then
-#        echo "Builder on vendor"
+    if [[ -d ${SHELL_PATH}/vendor ]]; then
+        echo "Builder on vendor"
+        gop
 #        params="-mod=vendor"
-#    fi
+    fi
 
     go build ${params} -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION}
     changeVersion ${APP_VERSION}
@@ -147,11 +148,6 @@ elif [[ "$1" = "test" ]]; then
 elif [[ "$1" = "upgrade" ]]; then
     upgradeGoMake
 elif [[ "$1" = "build" ]]; then
-    if [[ "$2" != "vendor" ]]; then
-    #sync vendor
-    gop
-#    go mod vendor
-    fi
     build
 else
     fail "no make command"

@@ -1,7 +1,5 @@
 build:
-	/usr/bin/env bash make.sh build $(mod)
-vendor:
-	/usr/bin/env bash make.sh build vendor
+	/usr/bin/env bash make.sh build
 back:
 	/usr/bin/env bash make.sh back $(version)
 version:
