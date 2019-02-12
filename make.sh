@@ -6,7 +6,7 @@
 
 APP="app"
 SHELL_PATH=$(cd `dirname $0`; pwd)
-VERSION="1.0.3"
+VERSION="1.0.4"
 APP_VERSION=`date +%Y%m%d%H%M%S`
 
 fail() {
