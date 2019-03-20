@@ -25,17 +25,17 @@ if [[ "${SHELL_PATH}" = "" ]]; then
     fail "SHELL_PATH empty!"
 fi
 
-gop(){
-    currpath=${SHELL_PATH}/
-    gopath=${currpath%src/*}
-
-    if [[ ${gopath} = "" ]];then
-        echo "path not found src"
-        exit
-    else
-        export GOPATH=${currpath%src/*}
-    fi
-}
+#gop(){
+#    currpath=${SHELL_PATH}/
+#    gopath=${currpath%src/*}
+#
+#    if [[ ${gopath} = "" ]];then
+#        echo "path not found src"
+#        exit
+#    else
+#        export GOPATH=${currpath%src/*}
+#    fi
+#}
 
 build(){
     if [[ ! -d ${SHELL_PATH}/bin ]]; then
@@ -50,9 +50,8 @@ build(){
 
     params=""
     if [[ -d ${SHELL_PATH}/vendor ]]; then
-        echo "Builder on vendor"
-        gop
-#        params="-mod=vendor"
+        echo "Builder mod vendor"
+        params="-mod=vendor"
     fi
 
     go build ${params} -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION}
@@ -148,6 +147,11 @@ elif [[ "$1" = "test" ]]; then
 elif [[ "$1" = "upgrade" ]]; then
     upgradeGoMake
 elif [[ "$1" = "build" ]]; then
+    if [[ "$2" == "mod" ]]; then
+    #sync vendor
+    echo "Sync vendor"
+    go mod vendor
+    fi
     build
 else
     fail "no make command"
