@@ -6,7 +6,7 @@
 
 APP="app"
 SHELL_PATH=$(cd `dirname $0`; pwd)
-VERSION="1.0.4"
+VERSION="1.0.5"
 APP_VERSION=`date +%Y%m%d%H%M%S`
 
 fail() {
@@ -49,7 +49,7 @@ build(){
     fi
 
     params=""
-    if [[ -d ${SHELL_PATH}/vendor ]]; then
+    if [[ $1 == "mod" ]]; then
         echo "Builder mod vendor"
         params="-mod=vendor"
     fi
@@ -152,7 +152,7 @@ elif [[ "$1" = "build" ]]; then
     echo "Sync vendor"
     go mod vendor
     fi
-    build
+    build $2
 else
     fail "no make command"
 fi
