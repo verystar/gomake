@@ -6,7 +6,7 @@
 
 APP="app"
 SHELL_PATH=$(cd `dirname $0`; pwd)
-VERSION="1.0.5"
+VERSION="1.0.6"
 APP_VERSION=`date +%Y%m%d%H%M%S`
 
 fail() {
@@ -150,7 +150,7 @@ elif [[ "$1" = "build" ]]; then
     if [[ "$2" == "mod" ]]; then
     #sync vendor
     echo "Sync vendor"
-    go mod vendor
+#    go mod vendor
     fi
     build $2
 else
