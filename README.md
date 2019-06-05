@@ -3,7 +3,7 @@ Golang project manager
 
 ## Install
 ```bash
-curl https://raw.githubusercontent.com/verystar/gomake/master/install.sh | sh
+curl https://raw.githubusercontent.com/ilibs/gomake/master/install.sh | sh
 ```
 
 ## Usage
