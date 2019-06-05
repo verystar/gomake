@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #---------------------
 # Golang manager for make
-# https://github.com/verystar/gomake
+# https://github.com/ilibs/gomake
 #---------------------
 
 APP="app"
@@ -120,8 +120,8 @@ getFile() {
 }
 
 install() {
-    DOWNLOAD_MAKESHELL_URL=https://raw.githubusercontent.com/verystar/gomake/master/make.sh
-    DOWNLOAD_MAKEFILE_URL=https://raw.githubusercontent.com/verystar/gomake/master/Makefile
+    DOWNLOAD_MAKESHELL_URL=https://raw.githubusercontent.com/ilibs/gomake/master/make.sh
+    DOWNLOAD_MAKEFILE_URL=https://raw.githubusercontent.com/ilibs/gomake/master/Makefile
     TOPATH=./
     getFile "${DOWNLOAD_MAKESHELL_URL}" "${TOPATH}"make.sh
     getFile "${DOWNLOAD_MAKEFILE_URL}" "${TOPATH}"Makefile
