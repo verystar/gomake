@@ -9,8 +9,8 @@ curl https://raw.githubusercontent.com/ilibs/gomake/master/install.sh | sh
 ## Usage
 
 ```bash
-make //base GOPATH go build main.go to ./bin and softlink to current path
-make mod //base Go Module build
+make //Go build on mod
+make vendor //Go build on vendor
 make version //show current app version
 make back //back app version to prev version
 make test //go test
@@ -19,7 +19,7 @@ make publish //rsync app code to server
 make upgrade //upgrade gomake
 ```
 
-## Builder for mod
+## Builder on vendor
 
 If the program directory contains the vendor directory, When compiled, -mod=vendor is automatically added
 
