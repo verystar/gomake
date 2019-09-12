@@ -1,7 +1,9 @@
+.PHONY: build vendor back version list publish test upgrade conf
+
 build:
 	/usr/bin/env bash make.sh build $(mod)
-mod:
-	/usr/bin/env bash make.sh build mod
+vendor:
+	/usr/bin/env bash make.sh build vendor
 back:
 	/usr/bin/env bash make.sh back $(version)
 version:
