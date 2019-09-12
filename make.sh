@@ -6,7 +6,7 @@
 
 APP="app"
 SHELL_PATH=$(cd `dirname $0`; pwd)
-VERSION="1.0.6"
+VERSION="1.1.0"
 APP_VERSION=`date +%Y%m%d%H%M%S`
 
 fail() {
@@ -49,9 +49,11 @@ build(){
     fi
 
     params=""
-    if [[ $1 == "mod" ]]; then
-        echo "Builder mod vendor"
+    if [[ $1 == "vendor" ]]; then
+        echo "🚀 Golang build on vendor"
         params="-mod=vendor"
+    else
+        echo "🚀 Golang build on mod"
     fi
 
     go build ${params} -o ${SHELL_PATH}/bin/${APP}-${APP_VERSION}
@@ -147,10 +149,12 @@ elif [[ "$1" = "test" ]]; then
 elif [[ "$1" = "upgrade" ]]; then
     upgradeGoMake
 elif [[ "$1" = "build" ]]; then
-    if [[ "$2" == "mod" ]]; then
+    if [[ "$2" == "vendor" ]]; then
     #sync vendor
-    echo "Sync vendor"
-#    go mod vendor
+      if [[ ! -d ${SHELL_PATH}/vendor ]]; then
+        echo "Sync vendor"
+        go mod vendor
+      fi
     fi
     build $2
 else
